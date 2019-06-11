@@ -4,7 +4,7 @@ import itertools
 class SOM:
     def __init__(self, h, w, dim):
         """
-            Construccion de una SOM rellena de zeros.
+            Construccion de una SOM rellena de ceros.
             h, w, dim: Construye una (h, w, dim) SOM.
         """
         self.shape = (h, w, dim)
@@ -29,12 +29,13 @@ class SOM:
         self.som = initializer(*self.shape)
 
         for t in itertools.count():
-            if self.sigma(t) < 1.0: break
-
+            # if self.sigma(t) < 0.5: break
+            if t == 50000: break
             i_data = np.random.choice(range(len(data)))
 
             bmu = self.find_bmu(data[i_data])
             self.update_bmu(bmu, data[i_data], t)
+
         self.data = data
 
     def find_bmu(self, input_vec):
@@ -96,12 +97,14 @@ class SOM:
             t: tiempo actual
         """
         self.som[bmu] += self.L(t) * (input_vector-self.som[bmu])
+        print(self.L(t))
 
     def L(self, t):
         """
             Formula de ratio de aprendizaje
             t: tiempo actual
         """
+        print(self.L0*np.exp(-t/self.lam))
         return self.L0*np.exp(-t/self.lam)
 
     def quant_err(self):
@@ -115,12 +118,3 @@ class SOM:
             bmu_feat = self.som[bmu]
             bmu_dists.append(np.linalg.norm(input_vector - bmu_feat))
         return np.array(bmu_dists).mean()
-
-# square_data = np.random.rand(5000, 2)
-# som_square = SOM(20, 20, 2)
-# som_square.train(square_data, l0=0.8, lam=1e2, sigma0=10)
-
-color_data = np.random.rand(3,3)
-som_color = SOM(40, 40, 3)
-som_color.train(color_data, l0=0.8,lam=1e2, sigma0=20)
-print(som_color.som)
