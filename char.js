@@ -11,7 +11,7 @@ let svg = d3.select("#vis_area")
 
 // Crea la escala: transforma valor a pixel
 let x = d3.scaleLinear()
-  .domain([0, 1])
+  .domain([-2, 2])
   .range([0, width]);
 svg
   .append('g')
@@ -19,7 +19,7 @@ svg
   .call(d3.axisBottom(x));
 
 let y = d3.scaleLinear()
-  .domain([0, 1])
+  .domain([-2, 2])
   .range([height, 0]);
 svg
   .append('g')
