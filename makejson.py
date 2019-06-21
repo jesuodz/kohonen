@@ -1,4 +1,5 @@
 #! python3
+
 def loadJSON(data, fname):
 
     fhandler = open(fname + '.json', 'w')

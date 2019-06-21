@@ -1,25 +1,24 @@
 import numpy as np
 from som import SOM
-from makejson import loadJSON
-import math
+from mongoInterface import *
+from makeJSON import loadJSON
 
-def PointsInCircum(r,n=5000):
-    return np.array([[math.cos(2*np.pi/n*x)*r+0.5,math.sin(2*np.pi/n*x)*r+0.5] for x in range(0,n+1)])
+# print("Creating a SOM")
+# mapa = SOM(20, 20, 2)
+# print("Training SOM")
+# mapa.train(data, L0=10, lam=1e2, sigma0=10)
 
-data = PointsInCircum(0.5)
+# arr1 = []
 
-# data = np.random.rand(5000, 2)
+# for arr in mapa.som:
+#     for i in arr:
+#         arr1.append([i[0], i[1]])
 
-print("Creating a SOM")
-mapa = SOM(20, 20, 2)
-print("Training SOM")
-mapa.train(data, L0=10, lam=1e2, sigma0=10)
+projection = {
+    "title": True
+}
 
-arr1 = []
+data = find_docs(projection, dbname='video', coll='movieDetails')
+print(data)
 
-for arr in mapa.som:
-    for i in arr:
-        arr1.append([i[0], i[1]])
-
-loadJSON(arr1, 'som_map')
-# loadJSON(data, 'initial_data')
+# loadJSON(arr1, 'som_map')

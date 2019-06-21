@@ -62,14 +62,13 @@ class SOM(object):
         self.data = data
         
         for t in itertools.count():
-            print(t)
-
+            
             if frames != None:
                 frames.append(self.som.copy())
 
             if self.sigma(t) < 1:
                 print("final t:", t)
-                print("quantization error:", self.quant_err())
+                # print("quantization error:", self.quant_err())
                 break
 
             i_data =  np.random.choice(range(len(data)))
