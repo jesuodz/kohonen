@@ -18,6 +18,14 @@ def cleaner(brute_data):
         cleaned_data.append(doc_lst)
     return cleaned_data
 
+def standarize(n):
+    """
+        Metodo de estandarizacion sencilla (base 10)
+    """
+    if abs(n) >= 10:
+        return n / 10
+    return n
+
 def build_JSON_coor(data, fname):
     """
         Construye un archivo JSON de coordenadas x,y
