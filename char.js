@@ -11,7 +11,7 @@ let svg = d3.select("#vis_area")
 
 // Crea la escala: transforma valor a pixel
 let x = d3.scaleLinear()
-  .domain([-15, 15])
+  .domain([-500, 500])
   .range([0, width]);
 svg
   .append('g')
@@ -19,19 +19,19 @@ svg
   .call(d3.axisBottom(x));
 
 let y = d3.scaleLinear()
-  .domain([-15, 15])
+  .domain([-50, 50])
   .range([height, 0]);
 svg
   .append('g')
   .call(d3.axisRight(y))
 
-// Añade la data som
+// Añade la data de la som
 svg
   .selectAll('points')
-  .data(som_map)
+  .data(data)
   .enter()
   .append("circle")
-    .attr("cx", (d) => { return x(String(d.x).slice(0,4)) })
-    .attr("cy", (d) => { return y(String(d.y).slice(0,4)) })
-    .attr("r", 3)
+    .attr("cx", (d) => { return x(d.x) })
+    .attr("cy", (d) => { return y(d.y) })
+    .attr("r", 2)
     .style("fill", "red")
